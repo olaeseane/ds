@@ -26,6 +26,24 @@ def predict_number_v2(number):
     return(count)   # Выход из цикла, если угадали
 
 
+def predict_number_v3(number):
+    '''Для минимизации попыток необходимо каждый раз делить диапазон угадываемых чисел на 2'''
+    count = 1
+    # Начальные диапазоны для угадывания чисел
+    max = 100 
+    min = 0
+    predict = int((max+min) / 2)
+    while number != predict:
+        count += 1
+        if number > predict:
+            min = predict
+            predict = int((max+min) / 2) # Каждый раз диапазон уменьшается на 2
+        elif number < predict:
+            max = predict
+            predict = int((max+min) / 2) # Каждый раз диапазон уменьшается на 2
+    return(count)   # Выход из цикла, если угадали
+
+
 def score_game(predict_func):
     '''Запускаем игру 1000 раз, чтобы узнать, как быстро игра угадывает число'''
     count_ls = []   # Список для сохранения числа попыток угадывания
@@ -41,4 +59,4 @@ def score_game(predict_func):
     return(score)
 
 
-score_game(predict_number_v2)
+score_game(predict_number_v3)
